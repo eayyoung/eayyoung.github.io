@@ -1,0 +1,850 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>cos-软件管理-mysql安装 | some森</title><meta name="author" content="Eay Young"><meta name="copyright" content="Eay Young"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="内核版本：usame -a、系统版本：cat &#x2F;etc&#x2F;redhat-release">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cos-软件管理-mysql安装">
+<meta property="og:url" content="https://eayyoung.github.io/post/centos/software/mysqlanzhuang/index.html">
+<meta property="og:site_name" content="some森">
+<meta property="og:description" content="内核版本：usame -a、系统版本：cat &#x2F;etc&#x2F;redhat-release">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-03-07T09:26:51.232Z">
+<meta property="article:modified_time" content="2024-05-10T08:08:25.991Z">
+<meta property="article:author" content="Eay Young">
+<meta property="article:tag" content="命令">
+<meta property="article:tag" content="centos">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="软件包管理">
+<meta property="article:tag" content="安装">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://eayyoung.github.io/post/centos/software/mysqlanzhuang/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"TRNR6KF5XH","apiKey":"5d4018e60df7646ab14ccf51854fee98","indexName":"hexo_butterfly","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'cos-软件管理-mysql安装',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-10 16:08:25'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#222831')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: rgb(37 43 70)"><nav id="nav"><span id="blog-info"><a href="/" title="some森"><span class="site-name">some森</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">cos-软件管理-mysql安装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-03-07T09:26:51.232Z" title="发表于 2024-03-07 17:26:51">2024-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/centos/">centos</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/centos/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/">软件包管理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="cos-软件管理-mysql安装"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li><h3 id="查看liunx系统版本信息"><a href="#查看liunx系统版本信息" class="headerlink" title="查看liunx系统版本信息"></a>查看liunx系统版本信息</h3></li>
+<li><h4 id="查看Linux内核版本命令（两种方法）"><a href="#查看Linux内核版本命令（两种方法）" class="headerlink" title="查看Linux内核版本命令（两种方法）"></a>查看Linux内核版本命令（两种方法）</h4><ol>
+<li><code>cat /proc/version</code>  <ol>
+<li><img src="/some%E6%A3%AE-onenote/Centos-%E6%95%99%E7%A8%8B/centos%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%BB%84/mysql%E5%AE%89%E8%A3%851.jpg"></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<br>
+
+<ol>
+<li><p><code>uname -a</code>  </p>
+<ol>
+<li><img src="/some%E6%A3%AE-onenote/Centos-%E6%95%99%E7%A8%8B/centos%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%BB%84/sql2.jpg"></li>
+</ol>
+</li>
+<li><h3 id="查看Linux系统版本的命令（3种方法）"><a href="#查看Linux系统版本的命令（3种方法）" class="headerlink" title="查看Linux系统版本的命令（3种方法）"></a>查看Linux系统版本的命令（3种方法）</h3><ol>
+<li><p><code>lsb_release -a</code>，即可列出所有版本信息:</p>
+<ol>
+<li><img src="/some%E6%A3%AE-onenote/Centos-%E6%95%99%E7%A8%8B/centos%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%BB%84/sql3.jpg"><blockquote>
+<p>这个命令适用于所有的Linux发行版，包括RedHat、SUSE、Debian…等发行版。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p><code>cat /etc/redhat-release</code>，这种方法只适合Redhat系的Linux：  </p>
+<ol>
+<li>[root@S-CentOS home]# <code>cat /etc/redhat-release</code>  </li>
+<li><code>CentOS release 6.5 (Final)</code></li>
+</ol>
+</li>
+<li><p><code>cat /etc/issue</code>，此命令也适用于所有的Linux发行版。  </p>
+<ul>
+<li><blockquote>
+<p>cmake -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql -DMYSQL_DATADIR&#x3D;&#x2F;usr&#x2F;loca&#x2F;mysql&#x2F;data -DMYSQL_UNIX_ADDR&#x3D;&#x2F;tmp&#x2F;mysql.sock -DDEFAULT_CHARSET&#x3D;utf8 -DDEFAULT_COLLATION&#x3D;utf8_general_ci -DWITH_BOOST&#x3D;boost -DDOWNLOAD_BOOST&#x3D;1</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><h3 id="MySQL-boost-5-7-35-源码包安装-自带boost版本）"><a href="#MySQL-boost-5-7-35-源码包安装-自带boost版本）" class="headerlink" title="MySQL-boost-5.7.35 源码包安装(自带boost版本）"></a>MySQL-boost-5.7.35 源码包安装(自带boost版本）</h3><ol>
+<li><strong>安装前准备</strong>  <ol>
+<li><p>服务器环境  </p>
+<ul>
+<li>centos7.6</li>
+</ul>
+</li>
+<li><p>下载所有需要的安装包<br>(1)mysql-boost-5.7.35.tar.gz,(2)mysql-5.7.35-linux-glibc2.12-x86_64.tar.gz</p>
+<ul>
+<li>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1I5aru9IESv0qIlqTeprH8A">https://pan.baidu.com/s/1I5aru9IESv0qIlqTeprH8A</a> 提取码：mqjy</li>
+</ul>
+</li>
+<li><p>上传文件到服务器  </p>
+<ol>
+<li>#代表root用户执行此命令，$  </li>
+<li># mkdir &#x2F;usr&#x2F;local&#x2F;software</li>
+<li>上传所有软件到服务器&#x2F;usr&#x2F;local&#x2F;software</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><pre><code>1. **安装所需依赖**
+
+  1. yum -y install cmake gcc gcc-c++ ncurses-devel ncurses openssl-devel  
+  2. yum -y install cmake make gcc gcc-c++ bison ncurses ncurses-devel
+
+2. **创建组和用户**  
+
+  1. # groupadd mysql  
+  2. # useradd -r -g mysql -s /bin/false mysql
+
+3. **创建相应目录并授权**  
+
+  1. # mkdir -p /app/mysql/data
+  2. # chown -R mysql.mysql /app/mysql/
+
+4. **安装mysql**  
+
+  1) # cd /app/software/
+  2) # tar zxvf mysql-boost-5.7.35.tar.gz
+  3) # cd mysql-5.7.35
+  4) # cmake -DCMAKE\_INSTALL\_PREFIX=/app/mysql -DMYSQL\_DATADIR=/app/mysql/data -DMYSQL\_UNIX\_ADDR=/tmp/mysql.sock -DDEFAULT\_CHARSET=utf8 -DDEFAULT\_COLLATION=utf8\_general\_ci -DWITH\_BOOST=boost -DDOWNLOAD\_BOOST=1
+
+ - &lt;br&gt;
+
+   - *ake 参数解释：*  
+     &lt;br&gt;
+
+       1) \-DCMAKE\_INSTALL\_PREFIX： 指定安装路径  
+       2) \-DMYSQL\_DATADIR ： 指定数据存放路径  
+       3) \-DMYSQL\_UNIX\_ADDR ：指定套间字路径  
+       4) \-DDEFAULT\_CHARSET ： 设置字符集  
+       5) \-DDEFAULT\_COLLATION ： 设置字符校验集  
+       6) \-DWITH\_BOOST ： 指定Boost扩展源码路径  
+       7) \-DDOWNLOAD\_BOOST=1：如果查找不到boost则下载boost
+</code></pre>
+</li>
+</ol>
+<br>
+
+<pre><code>      1. **执行以下命令编译mysql**  
+
+             1) # make  
+             2) # make install  
+             3) # chown -R mysql:mysql /app/mysql/  
+             4) # vi /etc/my.cnf  
+
+                  [mysqld]  
+
+                  basedir = /app/mysql/  
+                  datadir = /app/mysql/data  
+                  socket = /tmp/mysql.sock  
+
+      2. **初始化数据库：**  
+
+              1) # cd /app/mysql/bin  
+              2) # ./mysqld --defaults-file=/etc/my.cnf --initialize --user=mysql  
+               
+                   命令参数解释：  
+                    i) –defaults-file ： 制定MySQL配置文件路径  
+                    ii) –initialize ： 初始化随机密码，注意，初始化的密码是一个过期密码，登录后需要修改密码  
+                    iii) –user： 指定账户
+                    iv) 上一个命令执行完之后，会在命令提示符的最后给出随机密码，  
+                    v) 一定记住 将此密码记录下来  
+
+        &lt;br&gt;  
+</code></pre>
+<ol>
+<li><h3 id="启动mysql服务"><a href="#启动mysql服务" class="headerlink" title="启动mysql服务"></a>启动mysql服务</h3><pre><code>   1. # cd /app/mysql/support-files/
+   2. # ./mysql.server start
+   3. # cd /app/mysql/bin/
+   4. # ./mysql -u root -p  
+</code></pre>
+</li>
+<li><h3 id="执行以下sql修改密码"><a href="#执行以下sql修改密码" class="headerlink" title="执行以下sql修改密码"></a>执行以下sql修改密码</h3><pre><code>   mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;
+</code></pre>
+</li>
+<li><h3 id="开放远程连接MySQL服务权限"><a href="#开放远程连接MySQL服务权限" class="headerlink" title="开放远程连接MySQL服务权限"></a>开放远程连接MySQL服务权限</h3><pre><code>   1. mysql&gt; use mysql;
+   2. mysql&gt; update user set host=&#39;%&#39; where user=&#39;root&#39;;
+   3. mysql&gt; flush privileges;
+</code></pre>
+</li>
+</ol>
+<p>  到此完成</p>
+<hr>
+<ol>
+<li>使用二进制文件安装mysql服务<br>  a. 安装依赖包<br> # yum -y install libaio libaio-devel</li>
+</ol>
+<p>  b. 创建组和用户<br>    i. # groupadd mysql<br>    ii. # useradd -r -g mysql -s &#x2F;bin&#x2F;false mysql<br>  c. 解压文件<br>    i. # tar zxvf mysql-5.7.35-linux-glibc2.12-x86_64.tar.gz<br>    ii. # mv mysql-5.7.35-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql<br>    iii. # vi &#x2F;etc&#x2F;my.cnf</p>
+<pre><code>  \[ mysqld \]
+
+  
+
+    basedir = /usr/local/mysql/
+
+    datadir = /usr/local/mysql/data
+
+    socket = /tmp/mysql.sock
+
+    \[mysqld\_safe\]
+
+    log-error=/usr/local/mysql/logs/error.log
+
+    pid-file=/usr/local/mysql/logs/mysql.pid
+</code></pre>
+<p>  d. 切换至安装目录,初始化数据库<br>    i. # cd &#x2F;usr&#x2F;local&#x2F;mysql<br>    ii. # bin&#x2F;mysqld –defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf –initialize –user&#x3D;mysql<br>  e. 命令参数解释：<br>    - –defaults-file ： 制定MySQL配置文件路径<br>    - –initialize ： 初始化随机密码，注意，初始化的密码是一个过期密码，登录后需要修改密码<br>    - –user： 指定账户</p>
+<pre><code>上一个命令执行完之后，会在命令提示符的最后给出随机密码，一定记住 将此密码记录下来
+
+  \# support-files/mysql.server start #启动mysql 服务器
+
+  \# bin/mysql -u root -p
+
+i. Enter password: # 输入刚刚的随机密码链接数据库
+
+
+
+ii. mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;
+</code></pre>
+<p>  f. 开放远程连接MySQL服务权限<br>    - mysql&gt; use mysql;<br>    - mysql&gt; update user set host&#x3D;’%’ where user&#x3D;’root’;<br>    - mysql&gt; flush privileges;</p>
+<pre><code>- 二进制安装到此完成 !
+- 编译源码安装与二进制安装最大的区别就是编译源码安装时对源代码进行编译而二进制安装不需要编译，直接就可以使用；
+</code></pre>
+<p>  g. my.cnf配置文件</p>
+<pre><code>\[mysql\]
+
+default-character-set=utf8
+
+socket=/tmp/mysql.sock
+
+
+
+\[mysqld\]
+
+default-storage-engine=INNODB
+
+character\_set\_server=utf8
+
+user=mysql
+
+basedir=/usr/local/mysql
+
+datadir=/usr/local/mysql/data
+
+socket=/tmp/mysql.sock
+
+server\_id=1
+
+port=3306
+
+\# 是否区分大小写，0区分，1不区分
+
+lower\_case\_table\_names=1
+
+federated
+
+
+
+max\_connections=3000
+
+max\_allowed\_packet=512M
+
+\# 表示缓冲池字节大小，推荐值为物理内存的50%~80%
+
+innodb\_buffer\_pool\_size=20G
+
+\# 用来控制redo log刷新到磁盘的策略。
+
+innodb\_flush\_log\_at\_trx\_commit=1
+
+max\_connect\_errors=10
+
+sql\_mode=strict\_trans\_tables,no\_zero\_in\_date,no\_zero\_date,error\_for\_division\_by\_zero,no\_engine\_substitution
+
+innodb\_open\_files=800
+
+
+
+read\_buffer\_size=4M
+
+read\_rnd\_buffer\_size=8M
+
+thread\_cache\_size=10
+
+tmp\_table\_size=20M
+
+table\_open\_cache=2000
+
+query\_cache\_size=40M
+
+
+
+sort\_buffer\_size=256K
+
+join\_buffer\_size=256K
+
+
+
+\# 后台进程最大IO性能指标。默认200，如果SSD，调整为5000~20000
+
+innodb\_io\_capacity=5000
+
+\# 非交互式连接 最大空闲时长（jdbc）单位：秒
+
+wait\_timeout=120
+
+\# 交互式连接 最大空闲时长（mysql客户端）单位：秒
+
+interactive\_timeout=120
+
+\# 并发线程数，设为 CPU 核数的两倍
+
+#thread\_concurrency=16
+
+\# 慢查询开启
+
+#slow\_query\_log = &#39;ON&#39;
+
+\# 慢查询sql存放文件路径
+
+#slow\_query\_log\_file = /usr/local/mysql/data/slow.log
+
+\# 记录查询超过1秒的语句
+
+#long\_query\_time = 1
+
+\# 开启查询缓存
+
+query\_cache\_type = 1
+
+\# 查询缓存大小
+
+query\_cache\_size = 400M
+
+\# 查询缓存单个sql最大值
+
+#query\_cache\_limit = 1M
+
+\# 除了缓存表数据和索引外,可以为操作所需的其他内部项分配缓存来提升InnoDB 的性能。这些内存就可以通过此参数来分配。（默认值不到百MB，调到1G提升3000tps）
+
+#innodb\_additional\_mem\_pool\_size = 1G
+
+\# 可以修改 InnoDB 为独立表空间模式，每个数据库的每个表都会生成一个数据空间。当一个 MySQL 服务器作为 Mycat 分片表存储服务器使用的情况下，单独表空间的访问性能要大大好友共享表空间，因此强烈建议使用独立表空间。
+
+#innodb\_file\_per\_table=1
+
+\# InnoDB 存储引擎的事务日志所使用的缓冲区
+
+innodb\_log\_buffer\_size = 512M
+
+\# 自动扩展InnoDB系统空间的增量大小, 对于大批量插入数据也是比较重要的优化参数（单位是 M）
+
+#innodb\_autoextend\_increment = 1024M
+
+\# 此参数确定数据日志文件的大小，以 M 为单位，更大的设置可以提高性能，但也会增加恢复故障数据库所需的时间。（默认值50MB，调到2G后，tps由2000提升到20000，提高了10倍）
+
+#innodb\_log\_file\_size = 2048M
+
+
+
+\[client\]
+
+port=3306
+
+default-character-set=utf8
+</code></pre>
+<ol start="5">
+<li><p><strong>问题与解决</strong><br>  a. &#x3D;&#x3D;问题原因：&#x3D;&#x3D;<br> 首先pid文件是mysql启动后，生成的一个文件，里面记录的是mysql当前的进程号，如果创建失败，mysql就无法启动。</p>
+<p> 可能原因：</p>
+<p>   mysql的端口被占用</p>
+<p>   生成pid文件的目录mysql的权限不足</p>
+<p>   mysql对应的my.cnf配置文件错误</p>
+<p>   mysql的启动脚本有问题</p>
+<p>   mysql有残余数据影响了服务的启动</p>
+<p>   注意查看报错日志,如没有特殊配置,通常在数据库的data目录下</p>
+<p> &#x3D;&#x3D;问题1：端口被占用&#x3D;&#x3D;</p>
+<p>   &#x3D;&#x3D;如果你启动的这个mysql的端口已被其他服务占用，应修改对应my.cnf中的端口号为其他端口,然后重启mysql&#x3D;&#x3D;</p>
+<pre><code> \# \[mysqld\]
+
+ \# port=3307
+</code></pre>
+<p>   如果在重启mysql前，已有该mysql的进程，建议kill掉再重启</p>
+<p> &#x3D;&#x3D;问题2：生成pid文件的目录mysql的权限不足&#x3D;&#x3D;</p>
+<p>   &#x3D;&#x3D;找到指定的mysql的数据存放目录并授权&#x3D;&#x3D;</p>
+<pre><code> \# chown -R mysql.mysql /data/mysql
+
+ 
+
+ 备注:
+
+ 通常有些情况,某些[linux](https://so.csdn.net/so/search?q=linux&amp;spm=1001.2101.3001.7020)内核的系统,注重&quot;安全&quot;,对目录或你登陆的账号的权限有限制,也会导致此问题.
+
+ 可尝试给你数据库目录的前一个目录设置755权限 chmod -R 755 /data
+
+ 如始终权限导致异常,请联系该服务器系统的提供者.
+</code></pre>
+<p>   如果授权后，仍无法启动。可以自己touch一个以主机名命名的pid文件，再启动</p>
+<p>   a) # cd &#x2F;data&#x2F;mysql<br> b) # touch node1.pid</p>
+<p> 问题3：该mysql对应的my.cnf配置文件错误</p>
+<ul>
+<li>查看my.cnf中的port,datadir,basedir,socket等参数的配置是否正确，且配置的目录mysql是否有权限</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>需要注意的是: 不要把mysql其他版本的调优后的my.cnf文件 放到你的my.cnf配置的目录下</li>
+<li>使用调优参数时,有时会因为版本变动的,部分参数不支持,初始化时导致异常.</li>
+</ul>
+<p>例如:把mysql5.5调优后的my.cnf 直接使用到 mysql5.6 mysql5.7 mysql8.0</p>
+<pre><code>问题4：mysql的启动脚本有问题
+
+  
+
+  当不确定启动脚本或mysql.server配置文件内参数是否正常时，先使用mysqld\_safe方式启动，查看是否可启动
+
+  (先cd到mysql的安装根目录)
+
+    
+
+    ./mysqld\_safe --defaults-file=/etc/mysql\_3306/my.cnf --user=mysql
+
+    or
+
+    ./mysqld\_safe --defaults-file=/etc/mysql/3306/my.cnf --basedir=/Apk/install/mysql --datadir
+
+    \=/mysql/data/ --pid-file=/mysql/data/mysql.pid --socket=/mysql/data/mysql.sock --port=3306
+
+    
+
+
+  如果可以启动，那么需要查看mysql启动脚本或mysql.server配置文件内参数并进行修改
+
+  
+
+  重点看下面两个参数
+
+    basedir
+
+    datadir
+</code></pre>
+<p>  b. MySQL系列—MySQL编译安装常见问题(或缺少依赖)及解决方法<br>    <strong>MySQL 编译安装时需要安装的依赖(全)：</strong></p>
+<pre><code>  yum install -y cmake
+
+  yum install ncurses ncurses-devel -y
+
+  yum install -y libarchive
+
+  yum install -y gcc gcc-c++
+
+  yum install -y openssl openssl-devel
+
+  yum install -y libtirpc libtirpc-devel
+
+  
+
+  指定boost（下载、在编译项指定即可,见文章尾部： MySQL编译安装常用选项）
+
+  安装（安装方法见文章尾部）
+
+  以下问题经由（腾讯云服务器CentOS Linux release 8.0.1905 (Core)） 华为云服务器（CentOS Linux release 7.6.1810 (Core) ） 和 mysql-boost-5.7.30.tar.gz 测试而来
+
+  华为云服务器（CentOS Linux release 7.6.1810 (Core) ）预装的软件比较多，出现提示需要安装的依赖比较少
+
+
+
+**\*\*问题1\*\***
+
+  \-- Could NOT find Curses (missing: CURSES\_LIBRARY CURSES\_INCLUDE\_PATH)
+
+    CMake Error at cmake/readline.cmake:71 (MESSAGE):
+
+    Curses library not found.  Please install appropriate package,
+
+    remove CMakeCache.txt and rerun cmake.On Debian/Ubuntu, package name is libncurses5-dev, on Redhat and derivates it is ncurses-devel.
+
+    Call Stack (most recent call first):
+
+    cmake/readline.cmake:100 (FIND\_CURSES)
+
+    cmake/readline.cmake:193 (MYSQL\_USE\_BUNDLED\_EDITLINE)
+
+    CMakeLists.txt:581 (MYSQL\_CHECK\_EDITLINE)
+
+      
+
+    - 出现原因：
+      缺少依赖
+
+
+  - 解决方法：
+    yum install ncurses ncurses-devel -y
+
+    
+
+
+
+
+**\*\*问题2\*\***
+
+  **CMake Error at cmake/boost.cmake:88 (MESSAGE):**
+
+    You can download it with -DDOWNLOAD\_BOOST=1 -DWITH\_BOOST=&lt;directory&gt;
+
+    This CMake script will look for boost in &lt;directory&gt;.  If it is not there,
+
+    it will download and unpack it (in that directory) for you.
+
+    If you are inside a firewall, you may need to use an http proxy:
+
+    export http\_proxy=http://example.com:80
+
+    Call Stack (most recent call first):
+
+    cmake/boost.cmake:174 (COULD\_NOT\_FIND\_BOOST)
+
+    CMakeLists.txt:547 (INCLUDE)
+
+      
+
+    - 出现原因：
+      没有指定boost位置，或boost位置错误
+
+
+  - 解决方法：
+    cd 指令或ls等指令验证boost路径是否正确，修改即可。
+
+
+
+  若果没有boost就需要下载，然后指定就可以了
+
+  
+
+
+
+**\*\*问题3\*\***
+
+  \-bash: cmake: command not found
+
+- 出现原因：
+  没有安装cmake
+</code></pre>
+<ul>
+<li><p>解决方法：<br>  yum install -y cmake</p>
+<p>  <strong>**问题4**</strong></p>
+<pre><code>cmake: symbol lookup error: cmake: undefined symbol: archive\_write\_add\_filter\_zstd
+
+  出现原因：
+
+    缺少依赖
+
+
+  解决方法：
+
+    yum install -y libarchive
+
+\=====================================
+</code></pre>
+<p>  <strong>**问题5*</strong>*</p>
+<pre><code>**CMake Error at CMakeLists.txt:146 (PROJECT):**
+
+  No CMAKE\_CXX\_COMPILER could be found.
+
+  Tell CMake where to find the compiler by setting either the environment
+
+   variable &quot;CXX&quot; or the CMake cache entry CMAKE\_CXX\_COMPILER to the full path
+
+   to the compiler, or to the compiler name if it is in the PATH.
+
+    出现原因：
+
+      缺少gcc-c++
+
+
+    解决方法：
+
+    yum install -y gcc gcc-c++
+
+\=====================================
+</code></pre>
+<p>  <strong>**问题6**</strong></p>
+<pre><code>Cannot find appropriate system libraries for WITH\_SSL=system.
+
+Make sure you have specified a supported SSL version.
+
+Valid options are :
+
+  system (use the OS openssl library),
+
+  yes (synonym for system),
+
+  &lt;/path/to/custom/openssl/installation&gt;
+
+  CMake Error at cmake/ssl.cmake:63 (MESSAGE):
+
+  Please install the appropriate openssl developer package.
+
+  Call Stack (most recent call first):
+
+  cmake/ssl.cmake:280 (FATAL\_SSL\_NOT\_FOUND\_ERROR)
+
+  CMakeLists.txt:579 (MYSQL\_CHECK\_SSL)
+
+    出现原因：
+
+      缺少依赖
+
+
+    解决方法：
+
+      yum install -y openssl openssl-devel
+
+\=====================================
+</code></pre>
+<p>  <strong>**问题7**</strong></p>
+<pre><code>**\-- Found PkgConfig: /usr/bin/pkg-config (found version &quot;1.4.2&quot;)**
+
+**\-- Checking for module &#39;libtirpc&#39;**
+
+**\--  Package &#39;libtirpc&#39;, required by &#39;virtual:world&#39;, not found**
+
+**CMake Error at cmake/rpc.cmake:76 (MESSAGE):**
+
+  Could not find rpc/rpc.h in /usr/include or /usr/include/tirpc
+
+  Call Stack (most recent call first):
+
+  rapid/plugin/group\_replication/configure.cmake:60 (MYSQL\_CHECK\_RPC)
+
+  rapid/plugin/group\_replication/CMakeLists.txt:25 (INCLUDE)
+
+    出现原因：
+
+      缺少依赖
+
+
+    解决方法：
+
+      yum install -y libtirpc libtirpc-devel
+
+\=====================================
+</code></pre>
+<p>  <strong>**问题8**</strong></p>
+<pre><code>**CMake Error at rapid/plugin/group\_replication/rpcgen.cmake:100 (MESSAGE):**
+
+  Could not find rpcgen
+
+  Call Stack (most recent call first):
+
+  rapid/plugin/group\_replication/CMakeLists.txt:36 (INCLUDE)
+
+    出现原因：
+
+      缺少依赖
+
+
+    解决方法：
+
+      **\*\*安装rpcsvc-proto\*\***
+
+        安装rpcsvc-proto方法如下：
+
+          下载rpcsvs-proto
+
+          [https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.2/rpcsvc-proto-1.4.2.tar.xz](https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.2/rpcsvc-proto-1.4.2.tar.xz)
+
+          解压
+
+          tar -xvf rpcsvc-proto-1.4.2.tar.xz
+
+          .configure
+
+          make &amp;&amp; make install
+
+          注意：如果下载的是tar.gz包，这个包需要手动生成configure文件后才能编译安装rpcvsc-proto,需要安装很多依赖项，很繁锁
+
+          [https://github.com/thkukuk/rpcsvc-proto/archive/refs/tags/v1.4.2.tar.gz](https://github.com/thkukuk/rpcsvc-proto/archive/refs/tags/v1.4.2.tar.gz)
+
+
+
+
+
+  \====================================
+</code></pre>
+<p>c. 附：MySQL编译安装常用选项<br>  cmake . \</p>
+<p>  -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql \ #指定MySQL安装目录</p>
+<p>  -DSYSCONFDIR&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;etc \ #指定MySQL配置文件my.cnf文件目录</p>
+<p>  -DMYSQL_USER&#x3D;mysql \ #指定MySQL运行用户</p>
+<p>  -DDEFAULT_CHARSET&#x3D;utf8 \ #指定默认字符集</p>
+<p>  -DDEFAULT_COLLATION&#x3D;utf8_general_ci \ #指定默认排序字符集</p>
+<p>  -DMYSQL_DATADIR&#x3D;&#x2F;mysql&#x2F;data \ #指定数据文件存放路径</p>
+<p>  -DWITH_BOOST&#x3D;&#x2F;usr&#x2F;local&#x2F;src&#x2F;mysql-5.7.30&#x2F;boost&#x2F;boost_1_59_0 \ #指定boost 文件存放路径</p>
+<p>  -DENABLED_LOCAL_INFILE&#x3D;1  \ #启用本地加载数据</p>
+<p>  -DMYSQL_UNIX_ADDR&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock \ #指定mysql.sock文件路径</p>
+<p>  -DWITH_MYISAM_STORAGE_ENGINE&#x3D;1 \</p>
+<p>  -DWITH_INNOBASE_STORAGE_ENGINE&#x3D;1 \</p>
+<p>  -DMYSQL_TCP_PORT&#x3D;3306 \</p>
+</li>
+</ul>
+<p>作者：米老鼠的米</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c31f404c2573">https://www.jianshu.com/p/c31f404c2573</a></p>
+<p>来源：简书</p>
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>————————————————</p>
+<p>版权声明：本文为CSDN博主「漠效」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/GX/_1/_11/_real/article/details/93010284">https://blog.csdn.net/GX\_1\_11\_real/article/details/93010284</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://eayyoung.github.io">Eay Young</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://eayyoung.github.io/post/centos/software/mysqlanzhuang/">https://eayyoung.github.io/post/centos/software/mysqlanzhuang/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://eayyoung.github.io" target="_blank">some森</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%91%BD%E4%BB%A4/">命令</a><a class="post-meta__tags" href="/tags/centos/">centos</a><a class="post-meta__tags" href="/tags/mysql/">mysql</a><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/">软件包管理</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E8%A3%85/">安装</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/centos/software/yumzaixianggl/" title="rpm包管理-yum在线管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">rpm包管理-yum在线管理</div></div></a></div><div class="next-post pull-right"><a href="/post/centos/software/ipaddr&amp;yum/" title="cos-软件管理-ip地址配置&amp;yum源"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">cos-软件管理-ip地址配置&amp;yum源</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/centos/software/rpmcommand/" title="cos-软件管理-rpm命令管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">cos-软件管理-rpm命令管理</div></div></a></div><div><a href="/post/centos/software/rpm&softgl/" title="cos-软件管理-软件包管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">cos-软件管理-软件包管理</div></div></a></div><div><a href="/post/centos/software/rpmguangli/" title="cos-软件管理-源码包管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">cos-软件管理-源码包管理</div></div></a></div><div><a href="/post/centos/software/scriptinstall/" title="cos-软件管理-脚本安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">cos-软件管理-脚本安装</div></div></a></div><div><a href="/post/centos/system/closecommand/" title="centos_关机重启命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">centos_关机重启命令</div></div></a></div><div><a href="/post/centos/jieya/tarcmd/" title="centos_压缩解压命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">centos_压缩解压命令</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Eay Young</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bliunx%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">1.</span> <span class="toc-text">查看liunx系统版本信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BLinux%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E5%91%BD%E4%BB%A4%EF%BC%88%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">查看Linux内核版本命令（两种方法）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BLinux%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E7%9A%84%E5%91%BD%E4%BB%A4%EF%BC%883%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">查看Linux系统版本的命令（3种方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-boost-5-7-35-%E6%BA%90%E7%A0%81%E5%8C%85%E5%AE%89%E8%A3%85-%E8%87%AA%E5%B8%A6boost%E7%89%88%E6%9C%AC%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">MySQL-boost-5.7.35 源码包安装(自带boost版本）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">开始安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8mysql%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.</span> <span class="toc-text">启动mysql服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%BB%A5%E4%B8%8Bsql%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="toc-number">6.</span> <span class="toc-text">执行以下sql修改密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5MySQL%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90"><span class="toc-number">7.</span> <span class="toc-text">开放远程连接MySQL服务权限</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/mysql/jichu/tablesselect/" title="mysql-基础-多表查询">mysql-基础-多表查询</a><time datetime="2024-05-10T17:13:51.000Z" title="发表于 2024-05-11 01:13:51">2024-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/mysql/jichu/shiwu/" title="mysql-基础-事务">mysql-基础-事务</a><time datetime="2024-05-10T17:13:37.000Z" title="发表于 2024-05-11 01:13:37">2024-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/mysql/jichu/yueshu/" title="mysql-基础-约束">mysql-基础-约束</a><time datetime="2024-05-10T17:13:20.000Z" title="发表于 2024-05-11 01:13:20">2024-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/mysql/jichu/hanshu/" title="mysql-基础-函数">mysql-基础-函数</a><time datetime="2024-05-10T17:13:01.000Z" title="发表于 2024-05-11 01:13:01">2024-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/mysql/jichu/sqlyuju/" title="mysql-基础-sql语句">mysql-基础-sql语句</a><time datetime="2024-05-10T17:12:42.000Z" title="发表于 2024-05-11 01:12:42">2024-05-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.22.1/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.65.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js?v=4.13.0"></script></div></div></body></html>
